@@ -2,9 +2,9 @@
   "name": "e-commerce-platform",
   "version": "1.0.0",
   "description": "E-commerce platform backend",
-  "main": "index.js",
+  "main": "server.js",
   "scripts": {
-    "start": "node index.js",
+    "start": "node server.js",
     "test": "mocha"
   },
   "keywords": [],
@@ -17,3 +17,4 @@
     "mocha": "^9.0.0"
   }
 }
+
