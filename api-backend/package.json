@@ -1,12 +1,19 @@
 {
-  "name": "api-backend",
+  "name": "e-commerce-platform",
   "version": "1.0.0",
+  "description": "E-commerce platform backend",
   "main": "index.js",
   "scripts": {
+    "start": "node index.js",
     "test": "mocha"
-    },
+  },
   "keywords": [],
   "author": "",
   "license": "ISC",
-  "description": ""
+  "dependencies": {
+    "express": "^4.17.1"
+  },
+  "devDependencies": {
+    "mocha": "^9.0.0"
+  }
 }
