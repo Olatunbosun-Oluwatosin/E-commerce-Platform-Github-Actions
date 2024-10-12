@@ -26,9 +26,10 @@ jobs:
       # Step 3: Install dependencies
       - name: Install dependencies
         run: npm install
-        working-directory: ./api
+        working-directory: ./api-backend
 
       # Step 4: Run unit tests
       - name: Run unit tests
         run: npm test
-        working-directory: ./api
+        working-directory: ./api-backend
+        
