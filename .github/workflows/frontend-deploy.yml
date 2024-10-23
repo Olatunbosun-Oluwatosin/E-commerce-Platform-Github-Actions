@@ -1,0 +1,43 @@
+name: E-Commerce Frontend CI/CD
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  build-and-deploy-frontend:
+    runs-on: ubuntu-latest
+
+    steps:
+    # Step 1: Checkout code
+    - name: Checkout code
+      uses: actions/checkout@v2
+
+    # Step 2: Set up Node.js for frontend
+    - name: Set up Node.js
+      uses: actions/setup-node@v2
+      with:
+        node-version: '16'
+
+    # Step 3: Install dependencies
+    - name: Install dependencies
+      run: npm install
+      working-directory: ./frontend
+
+    # Step 4: Run tests
+    - name: Run tests
+      run: npm test
+      working-directory: ./frontend
+
+    # # Step 5: Deploy frontend to AWS EC2
+    # - name: Deploy Frontend to EC2
+    #   run: |
+    #     ssh -o StrictHostKeyChecking=no ${{ secrets.EC2_USER }}@${{ secrets.EC2_HOST }} "cd /path/to/frontend && git pull origin main && npm install && pm2 restart frontend"
+    #   env:
+    #     EC2_KEY: ${{ secrets.EC2_KEY }}
+    #     EC2_USER: ${{ secrets.EC2_USER }}
+    #     EC2_HOST: ${{ secrets.EC2_HOST }}
