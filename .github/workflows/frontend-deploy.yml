@@ -26,12 +26,12 @@ jobs:
     # Step 3: Install dependencies
     - name: Install dependencies
       run: npm install
-      working-directory: ./frontend
+      working-directory: ./webapp-frontend
 
     # Step 4: Run tests
     - name: Run tests
       run: npm test
-      working-directory: ./frontend
+      working-directory: ./webapp-frontend
 
     # # Step 5: Deploy frontend to AWS EC2
     # - name: Deploy Frontend to EC2
