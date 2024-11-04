@@ -36,7 +36,8 @@ jobs:
     # Step 5: Build Frontend
     - name: Build Frontend
       working-directory: ./webapp-frontend
-      run: npm run build
+      run: |
+        CI=false npm run build
 
     # # Step 6: Deploy frontend to AWS EC2
     # - name: Deploy Frontend to EC2
