@@ -33,9 +33,9 @@ jobs:
         run: npm test
         working-directory: ./api
 
-      # step 5: Build Backend
-      - name: Build Backend
-        run: npm run build
-        working-directory: ./api
+      # # step 5: Build Backend
+      # - name: Build Backend
+      #   run: npm run build
+      #   working-directory: ./api
 
 
