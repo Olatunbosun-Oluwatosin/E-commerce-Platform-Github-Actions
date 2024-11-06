@@ -13,29 +13,35 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      # Step 1: Check out the code
       - name: Checkout code
         uses: actions/checkout@v2
 
-      # Step 2: Set up Node.js (assuming API is a Node.js project)
       - name: Set up Node.js
         uses: actions/setup-node@v2
         with:
           node-version: '14'
 
-      # Step 3: Install dependencies
       - name: Install dependencies
         run: npm install
         working-directory: ./api
 
-      # Step 4: Run unit tests
       - name: Run unit tests
         run: npm test
         working-directory: ./api
+      
+      - name: Build Docker image
+        run: docker build -t tosyeno/backend-api:latest .
+        working-directory: ./api
 
-      # # step 5: Build Backend
-      # - name: Build Backend
-      #   run: npm run build
-      #   working-directory: ./api
+      - name: Login to Docker Hub
+        uses: docker/login-action@v2
+        with:
+          username: ${{ secrets.DOCKER_USERNAME }}
+          password: ${{ secrets.DOCKER_PASSWORD }}
+
+      - name: Push Docker image
+        run: docker push tosyeno/backend-api:latest
+
+  
 
 
