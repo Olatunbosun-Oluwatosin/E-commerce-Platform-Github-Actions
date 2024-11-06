@@ -53,11 +53,3 @@ jobs:
     - name: Push Docker image
       run: docker push tosyeno/frontend-app:latest
 
-    # # Step 7: Deploy frontend to AWS EC2
-    # - name: Deploy Frontend to EC2
-    #   run: |
-    #     ssh -o StrictHostKeyChecking=no ${{ secrets.EC2_USER }}@${{ secrets.EC2_HOST }} "cd /path/to/frontend && git pull origin main && npm install && pm2 restart frontend"
-    #   env:
-    #     EC2_KEY: ${{ secrets.EC2_KEY }}
-    #     EC2_USER: ${{ secrets.EC2_USER }}
-    #     EC2_HOST: ${{ secrets.EC2_HOST }}
