@@ -1,5 +1,12 @@
 # E-commerce-Platform-Github-Actions
 
+_This task is to develop and maintain an e-commerce platform. This platform has two primary components;_
+
+1. `E-commerce API`: Backend service handling product listings, user accounts and order processing.
+2. `E-commerce Frontend`: A web application for users to browse products. manage their accounts and place orders.
+
+The goal is to automate the integration and deployment process for both components using GitHub Actions, ensuring continuous delivery and integration.
+
 ### NPM START
 ![](./img/1.%20Api-running-locally.png)
 After installing the required dependencies for the API backend of the project, to run the application "npm start" was initiated as seen in the image above.
