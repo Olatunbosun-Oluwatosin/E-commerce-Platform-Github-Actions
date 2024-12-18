@@ -1,0 +1,53 @@
+name: Deploy to AWS EC2
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  deploy-to-ec2:
+    runs-on: ubuntu-latest
+
+    steps:
+    # Step 1: Checkout code
+    - name: Checkout code
+      uses: actions/checkout@v2
+
+    # Step 2: Login to Docker Hub
+    - name: Login to Docker Hub
+      uses: docker/login-action@v2
+      with:
+        username: ${{ secrets.DOCKER_USERNAME }}
+        password: ${{ secrets.DOCKER_PASSWORD }}
+
+    # Step 3: Pull Docker images from Docker Hub
+    - name: Pull Docker Images
+      run: |
+        docker pull tosyeno/frontend-app:latest
+        docker pull tosyeno/backend-api:latest
+
+    # Step 4: Copy SSH Key to Runner
+    - name: Setup SSH Key
+      run: |
+        echo "${{ secrets.EC2_SSH_KEY }}" | base64 -d > ec2-key.pem
+        chmod 600 ec2-key.pem
+
+    # Step 5: Deploy to EC2
+    - name: Deploy Docker Containers to EC2
+      run: |
+        ssh -o StrictHostKeyChecking=no -i ec2-key.pem ec2-user@${{ secrets.EC2_PUBLIC_IP }} << 'EOF'
+        docker login -u "${{ secrets.DOCKER_USERNAME }}" -p "${{ secrets.DOCKER_PASSWORD }}"
+        
+        # Pull latest Docker images
+        docker pull tosyeno/frontend-app:latest
+        docker pull tosyeno/backend-api:latest
+
+        # Stop and remove existing containers
+        docker stop frontend-app || true && docker rm frontend-app || true
+        docker stop backend-api || true && docker rm backend-api || true
+
+        # Run updated containers
+        docker run -d -p 80:80 --name frontend-app tosyeno/frontend-app:latest
+        docker run -d -p 3000:3000 --name backend-api tosyeno/backend-api:latest
+        EOF
