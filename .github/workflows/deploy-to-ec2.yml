@@ -30,13 +30,13 @@ jobs:
     # Step 4: Copy SSH Key to Runner
     - name: Setup SSH Key
       run: |
-        echo "${{ secrets.EC2_SSH_KEY }}" | base64 -d > ec2-key.pem
-        chmod 600 ec2-key.pem
+        echo "${{ secrets.EC2_SSH_KEY }}" | base64 -d > jenkins.pem
+        chmod 600 jenkins.pem
 
     # Step 5: Deploy to EC2
     - name: Deploy Docker Containers to EC2
       run: |
-        ssh -o StrictHostKeyChecking=no -i ec2-key.pem ec2-user@${{ secrets.EC2_PUBLIC_IP }} << 'EOF'
+        ssh -o StrictHostKeyChecking=no -i jenkins.pem ec2-user@${{ secrets.EC2_PUBLIC_IP }} << 'EOF'
         docker login -u "${{ secrets.DOCKER_USERNAME }}" -p "${{ secrets.DOCKER_PASSWORD }}"
         
         # Pull latest Docker images
