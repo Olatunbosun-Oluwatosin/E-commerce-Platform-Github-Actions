@@ -33,7 +33,7 @@ jobs:
         echo "${{ secrets.EC2_SSH_KEY }}" | base64 -d > jenkins.pem
         chmod 600 jenkins.pem
 
-    # Step 5: Deploy to EC2 Instance
+    # Step 5: Deploy to EC2 
     - name: Deploy Docker Containers to EC2
       run: |
         ssh -o StrictHostKeyChecking=no -i jenkins.pem ubuntu@${{ secrets.EC2_PUBLIC_IP }} << 'EOF'
