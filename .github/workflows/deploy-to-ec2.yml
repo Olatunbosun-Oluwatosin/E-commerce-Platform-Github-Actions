@@ -36,7 +36,7 @@ jobs:
     # Step 5: Deploy to EC2 
     - name: Deploy Docker Containers to EC2
       run: |
-        ssh -o StrictHostKeyChecking=no -i jenkins.pem ubuntu@${{ secrets.EC2_PUBLIC_IP }} << 'EOF'
+        ssh -o StrictHostKeyChecking=no -i jenkins.pem ubuntu@ec2-18-205-237-167.compute-1.amazonaws.com << 'EOF'
         docker login -u "${{ secrets.DOCKER_USERNAME }}" -p "${{ secrets.DOCKER_PASSWORD }}"
         
         # Pull latest Docker images
